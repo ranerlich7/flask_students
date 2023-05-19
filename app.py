@@ -9,6 +9,8 @@ STUDENTS = [
     {"name":"Or", "phone": "053-9995555"},
     {"name":"Binyamin", "phone": "052-43345555"}]
 
+CLASSES = ["Python", "java", "flask"]
+
 @app.route("/", methods=["GET","POST"])
 def index():
    message = ""
@@ -20,7 +22,7 @@ def index():
         if user == "ran" and password == "123":
             session["logged_in_user"] = user
             session["color"] = color
-            return redirect("/students")
+            return redirect(url_for("students"))
         else:       
             message = "Error in login"
    return render_template("index.html", message=message)
@@ -37,6 +39,13 @@ def students():
         return redirect("/")
     # check if logged in. if not redirect("/")
    return render_template("students.html", students = STUDENTS, logged_in_user= session.get("logged_in_user"))
+
+@app.route("/classes")
+def classes():    
+   if not session.get("logged_in_user"):
+        return redirect("/")
+   return render_template("classes.html", classes = CLASSES)
+
 
 @app.route("/search")
 def search():

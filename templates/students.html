@@ -1,28 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% block content %}
+<form action="/search">
+    Name:<input name="search">
+    Phone:<input name="phone">
+    <input type="submit" value="Search">
+</form>
+{% for student in students %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<li>{{ student.name }} - {{ student.phone }} </li>
+{% endfor %}
+{% endblock %}
 
-<body>
-    {% if logged_in_user %}
-    <h3 style="color:{{ session.get('color') }}">Hello {{ logged_in_user }}</h3>
-    <a href="/logout">Logout</a>
-    {% endif %}
-    <hr>
-    <form action="/search">
-        Name:<input name="search">
-        Phone:<input name="phone">
-        <input type="submit" value="Search">
-    </form>
-    {% for student in students %}
-
-    <li>{{ student.name }} - {{ student.phone }} </li>
-    {% endfor %}
-</body>
-
-</html>
+{% block content2 %}
+AAAAAAAAAAAAAAAAAAAA
+{% endblock %}

@@ -1,0 +1,5 @@
+{% if session.get('logged_in_user') %}
+<h3 style="color:{{ session.get('color') }}">Hello {{ session.get('logged_in_user') }}</h3>
+<a href="/logout">Logout</a>
+{% endif %}
+<hr>
