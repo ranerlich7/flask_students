@@ -11,8 +11,9 @@
 <body>
     {% if logged_in_user %}
     <h3 style="color:{{ session.get('color') }}">Hello {{ logged_in_user }}</h3>
+    <a href="/logout">Logout</a>
     {% endif %}
-
+    <hr>
     <form action="/search">
         Name:<input name="search">
         Phone:<input name="phone">

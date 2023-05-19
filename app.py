@@ -25,6 +25,12 @@ def index():
             message = "Error in login"
    return render_template("index.html", message=message)
 
+@app.route("/logout")
+def logout():    
+   session.clear()
+#    session["logged_in_user"] = ""
+   return redirect("/")
+
 @app.route("/students")
 def students():    
    if not session.get("logged_in_user"):
