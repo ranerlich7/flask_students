@@ -15,9 +15,11 @@ def index():
    if request.method == "POST":
         user = request.form.get("username")
         password = request.form.get("password")
-        print(f"user:{user}, password:{password}")
+        color = request.form.get("color")
+        print(f"user:{user}, password:{password}. color:{color}")
         if user == "ran" and password == "123":
             session["logged_in_user"] = user
+            session["color"] = color
             return redirect("/students")
         else:       
             message = "Error in login"

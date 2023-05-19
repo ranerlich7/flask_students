@@ -10,7 +10,7 @@
 
 <body>
     {% if logged_in_user %}
-    <h3>Hello {{ logged_in_user }}</h3>
+    <h3 style="color:{{ session.get('color') }}">Hello {{ logged_in_user }}</h3>
     {% endif %}
 
     <form action="/search">
