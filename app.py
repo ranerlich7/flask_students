@@ -1,23 +1,23 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 
 
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"asdfsafsg346345F4Q8z\n\xec]/'
+
 STUDENTS = [
     {"name":"Ran", "phone": "050-4445555"},
     {"name":"Or", "phone": "053-9995555"},
     {"name":"Binyamin", "phone": "052-43345555"}]
-logged_in_user = ""
 
 @app.route("/", methods=["GET","POST"])
 def index():
-   global logged_in_user
    message = ""
    if request.method == "POST":
         user = request.form.get("username")
         password = request.form.get("password")
         print(f"user:{user}, password:{password}")
         if user == "ran" and password == "123":
-            logged_in_user = user
+            session["logged_in_user"] = user
             return redirect("/students")
         else:       
             message = "Error in login"
@@ -25,10 +25,10 @@ def index():
 
 @app.route("/students")
 def students():    
-   if not logged_in_user:
+   if not session.get("logged_in_user"):
         return redirect("/")
     # check if logged in. if not redirect("/")
-   return render_template("students.html", students = STUDENTS, logged_in_user=logged_in_user)
+   return render_template("students.html", students = STUDENTS, logged_in_user= session.get("logged_in_user"))
 
 @app.route("/search")
 def search():
@@ -42,7 +42,7 @@ def search():
             new_list.append(student)
     # new_list = [student for student in STUDENTS if search in student]   
     print(f"new_list-{new_list}")
-    return render_template("students.html", students = new_list, logged_in_user=logged_in_user)
+    return render_template("students.html", students = new_list, logged_in_user=session.get("logged_in_user"))
 
 
 @app.errorhandler(404)
